@@ -1,15 +1,12 @@
 //@ts-check
 const { By, until } = require("selenium-webdriver");
 
-class LoginPage {
+module.exports = class LoginPage {
   constructor(driver) {
     this.driver = driver;
     this.inputUsername = By.id("user-name");
     this.inputPassword = By.id("password");
     this.loginButton = By.id("login-button");
-
-    // Classname of the Swag Labs logo
-    this.inventoryPage = By.className("app_logo");
   }
 
   async open(url) {
@@ -18,8 +15,7 @@ class LoginPage {
 
   async enterUsername(username) {
     const field = await this.driver.wait(
-      until.elementLocated(this.inputUsername),
-      5000
+      until.elementLocated(this.inputUsername)
     );
     await this.driver.wait(until.elementIsVisible(field), 1000);
     await field.sendKeys(username);
@@ -27,8 +23,7 @@ class LoginPage {
 
   async enterPassword(password) {
     const field = await this.driver.wait(
-      until.elementLocated(this.inputPassword),
-      5000
+      until.elementLocated(this.inputPassword)
     );
     await this.driver.wait(until.elementIsVisible(field), 1000);
     await field.sendKeys(password);
@@ -36,16 +31,9 @@ class LoginPage {
 
   async clickLogin() {
     const button = await this.driver.wait(
-      until.elementLocated(this.loginButton),
-      5000
+      until.elementLocated(this.loginButton)
     );
     await this.driver.wait(until.elementIsVisible(button), 1000);
     await button.click();
   }
-  async waitForInventoryPage() {
-    await this.driver.wait(until.elementLocated(this.inventoryPage), 5000);
-    return true;
-  }
-}
-
-module.exports = LoginPage;
+};
